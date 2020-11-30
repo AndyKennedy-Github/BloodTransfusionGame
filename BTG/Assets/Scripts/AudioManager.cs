@@ -7,13 +7,13 @@ public class AudioManager : MonoBehaviour
 
     public AudioClip[] sounds;
 
-    public void PlaySoundOnce(gameobject g, int n)
+    public void PlaySoundOnce(GameObject g, int n)
     {
         AudioSource a = g.GetComponent<AudioSource>();
         a.PlayOneShot(sounds[n], 0.5f);
     }
 
-    public void PlaySound(gameobject g, int n)
+    public void PlaySound(GameObject g, int n)
     {
         AudioSource a = g.GetComponent<AudioSource>();
         if(a.isPlaying == false)
@@ -23,7 +23,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void StopSound()
+    public void StopSound(GameObject g)
     {
         AudioSource a = g.GetComponent<AudioSource>();
         a.Stop();
