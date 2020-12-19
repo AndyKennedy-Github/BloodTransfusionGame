@@ -1,6 +1,7 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+//using System.Collections.Generic;
 using UnityEngine;
+//using UnityEngine.Networking;  //Use this if WWW is obsolete in Unity version
 
 public class MyGameManager3 : MonoBehaviour
 {
@@ -40,6 +41,7 @@ public class MyGameManager3 : MonoBehaviour
             if (filePath.Contains("://") || filePath.Contains(":///"))
             {
                 WWW www = new WWW(filePath);
+                //UnityWebRequest www = UnityWebRequest.Get(filePath); //use this if WWW is obsolete
                 yield return www;
                 result = www.text;
             }
@@ -70,6 +72,7 @@ public class MyGameManager3 : MonoBehaviour
             param=null;
             commandNum=i;
             string commandLine = commands[commandNum];
+            commandLine = commandLine.Trim(); //remove extra newlines or whitespace at end
             print("GM:Execute Command["+ commandNum+ "] = " + commandLine);
     
             string [] splitArray = commandLine.Split(' ');
