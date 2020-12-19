@@ -1,0 +1,5 @@
+GM Do PatientEnters.txt 
+#GM Load Env/TVOn.txt
+GM Do CheckPatient.txt
+GM Do Env/TVOn.txt
+GM Wait 9

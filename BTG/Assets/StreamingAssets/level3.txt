@@ -1,4 +1,4 @@
-/Enemy3 off
+/Patient on
 /Room1/Door rotateY 1.2
 GM Sleep 1
 GM If
@@ -11,4 +11,4 @@ GM Else
 /RoomLight on
 GM Sleep 2
 GM Endif
-GM Goto 2
+#GM Goto 2

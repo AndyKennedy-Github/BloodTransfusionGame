@@ -58,7 +58,7 @@ public class MakeMeUnique : MonoBehaviour
 
       //angle oscillates between -stepsize and + stepsize based on the time and speed variable
       ang = stepsize * Mathf.Sin(speed * Time.time);
-      print("ang="+ang);
+//      print("ang="+ang);
 
       //get right leg rotation and set x-axis rot to ang
       var rrot = rightLeg.transform.rotation;
