@@ -6,33 +6,137 @@ public class TouchController : MonoBehaviour
 {
 
     public float speed = 1.0f;
-    Transform origPos;
-    Transform target;
-    bool isMoving;
+    public GameObject selectionCan, monitorCan, paperCan, phoneCan, paper, phone;
+    Transform camPos, paperPos, phonePos;
+    Transform target, phoneTarget, paperTarget;
+    bool camMoving = false, phoneMoving = false, paperMoving = false;
+    bool sendCamBack = false, sendPaperBack = false, sendPhoneBack = false;
     // Start is called before the first frame update
     void Start()
     {
-        isMoving = false;
+        selectionCan.SetActive(true);
+        monitorCan.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
+        RunChecks();
+    }
+
+    void RunChecks()
+    {
         float step = speed * Time.deltaTime;
-        if(isMoving)
+        if (camMoving)
         {
-            Camera.main.transform.position = Vector3.MoveTowards(origPos.position, target.position, step);
-            if(Vector3.Distance(Camera.main.transform.position, target.position) < .01f)
+            selectionCan.SetActive(false);
+            Camera.main.transform.position = Vector3.MoveTowards(camPos.position, target.position, step);
+            if (Vector3.Distance(Camera.main.transform.position, target.position) < .001f)
             {
-                isMoving = false;
+                camMoving = false;
+                monitorCan.SetActive(true);
+            }
+        }
+
+        if (sendCamBack)
+        {
+            monitorCan.SetActive(false);
+            Camera.main.transform.position = Vector3.MoveTowards(camPos.position, target.position, step);
+            if (Vector3.Distance(Camera.main.transform.position, target.position) < .001f)
+            {
+                sendCamBack = false;
+                selectionCan.SetActive(true);
+            }
+        }
+
+        if (paperMoving)
+        {
+            selectionCan.SetActive(false);
+            paper.transform.rotation = paperTarget.rotation;
+            paper.transform.position = Vector3.MoveTowards(paperPos.position, paperTarget.position, step);
+            if (Vector3.Distance(paper.transform.position, paperTarget.position) < .001f)
+            {
+                paperMoving = false;
+                paperCan.SetActive(true);
+            }
+        }
+
+        if (sendPaperBack)
+        {
+            paperCan.SetActive(false);
+            paper.transform.rotation = paperTarget.rotation;
+            paper.transform.position = Vector3.MoveTowards(paperPos.position, paperTarget.position, step);
+            if (Vector3.Distance(paper.transform.position, paperTarget.position) < .001f)
+            {
+                sendPaperBack = false;
+                selectionCan.SetActive(true);
+            }
+        }
+
+        if (phoneMoving)
+        {
+            selectionCan.SetActive(false);
+            phone.transform.rotation = phoneTarget.rotation;
+            phone.transform.position = Vector3.MoveTowards(phonePos.position, phoneTarget.position, step);
+            if (Vector3.Distance(phone.transform.position, phoneTarget.position) < .001f)
+            {
+                phoneMoving = false;
+                phoneCan.SetActive(true);
+            }
+        }
+
+        if (sendPhoneBack)
+        {
+            phoneCan.SetActive(false);
+            phone.transform.rotation = phoneTarget.rotation;
+            phone.transform.position = Vector3.MoveTowards(phonePos.position, phoneTarget.position, step);
+            if (Vector3.Distance(phone.transform.position, phoneTarget.position) < .001f)
+            {
+                sendPhoneBack = false;
+                selectionCan.SetActive(true);
             }
         }
     }
 
-    public void SetTargetandMove(Transform t, bool b)
+    public void SetTargetandMove(Transform t)
     {
-        origPos = Camera.main.transform;
+        camPos = Camera.main.transform;
         target = t;
-        isMoving = b;
+        camMoving = true;
+    }
+
+    public void SendBackCamera(Transform t)
+    {
+        camPos = Camera.main.transform;
+        target = t;
+        sendCamBack = true;
+    }
+
+    public void MovePapers(Transform t)
+    {
+        paperPos = paper.transform;
+        paperTarget = t;
+        paperMoving = true;
+    }
+
+    public void SendBackPapers(Transform t)
+    {
+        paperPos = paper.transform;
+        paperTarget = t;
+        sendPaperBack = true;
+    }
+
+    public void MovePhone(Transform t)
+    {
+        phonePos = phone.transform;
+        phoneTarget = t;
+        phoneMoving = true;
+    }
+
+    public void SendBackPhone(Transform t)
+    {
+        phonePos = phone.transform;
+        phoneTarget = t;
+        sendPhoneBack = true;
     }
 }
